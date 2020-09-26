@@ -24,16 +24,29 @@ namespace Commander.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<CommandReadDto>> GetAllCommands()
         {
-            var items = _repo.GetAllCommands();
-            return Ok(_mapper.Map<IEnumerable<CommandReadDto>>(items));
+            var commandModels = _repo.GetAllCommands();
+            return Ok(_mapper.Map<IEnumerable<CommandReadDto>>(commandModels));
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{id}", Name="GerCommandById")]
         public ActionResult<CommandReadDto> GerCommandById(int id)
         {
-            var item = _repo.GetCommandById(id);
-            if (item == null) return NotFound();
-            return Ok(_mapper.Map<CommandReadDto>(item));
+            var commandModel = _repo.GetCommandById(id);
+            if (commandModel == null) return NotFound();
+            return Ok(_mapper.Map<CommandReadDto>(commandModel));
+        }
+
+        [HttpPost]
+        public ActionResult<CommandReadDto> CreateCommand(CommandCreateDto commandCreateDto)
+        {
+            var commandModel = _mapper.Map<Command>(commandCreateDto);
+            _repo.CreateCommand(commandModel);
+            _repo.SaveChanges();
+
+            var commandReadDto = _mapper.Map<CommandReadDto>(commandModel);
+
+            // We'll use the CreatedAtRoute method to return 201 reponse to the client
+            return CreatedAtRoute(nameof(GerCommandById), new { Id = commandReadDto.Id }, commandReadDto);
         }
     }
 }

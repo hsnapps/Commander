@@ -8,7 +8,9 @@ namespace Commander.Profiles
     {
         public CommandProfile()
         {
+            //       source -> destination
             CreateMap<Command, CommandReadDto>();
+            CreateMap<CommandCreateDto, Command>();
         }
     }
 }

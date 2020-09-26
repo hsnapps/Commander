@@ -18,6 +18,11 @@ namespace Commander.Data
             };
         }
 
+        public void CreateCommand(Command cmd)
+        {
+            throw new System.NotImplementedException();
+        }
+
         public IEnumerable<Command> GetAllCommands()
         {
             return commands;
@@ -26,6 +31,11 @@ namespace Commander.Data
         public Command GetCommandById(int id)
         {
             return commands.FirstOrDefault(p => p.Id == id);
+        }
+
+        public bool SaveChanges()
+        {
+            throw new System.NotImplementedException();
         }
     }
 }
