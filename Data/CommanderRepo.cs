@@ -33,7 +33,7 @@ namespace Commander.Data
             _context.Commands.Add(cmd);
         }
 
-        public void UpdateCommand(int id, Command cmd)
+        public void UpdateCommand(Command cmd)
         {
             // Do Nothing
         }
