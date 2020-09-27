@@ -1,2 +1,2 @@
 *.txt
-appsettings.json
+/appsettings.json
