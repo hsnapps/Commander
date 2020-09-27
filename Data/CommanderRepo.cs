@@ -38,6 +38,16 @@ namespace Commander.Data
             // Do Nothing
         }
 
+        public void DeleteCommand(Command cmd)
+        {
+            if (cmd == null)
+            {
+                throw new System.ArgumentNullException(nameof(cmd));
+            }
+
+            _context.Commands.Remove(cmd);
+        }
+
         public bool SaveChanges()
         {
             return _context.SaveChanges() >= 0;
