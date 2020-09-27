@@ -13,6 +13,16 @@ namespace Commander.Data
             _context = context;
         }
 
+        public IEnumerable<Command> GetAllCommands()
+        {
+            return _context.Commands.ToList();
+        }
+
+        public Command GetCommandById(int id)
+        {
+            return _context.Commands.FirstOrDefault(p => p.Id == id);
+        }
+
         public void CreateCommand(Command cmd)
         {
             if (cmd == null)
@@ -23,14 +33,9 @@ namespace Commander.Data
             _context.Commands.Add(cmd);
         }
 
-        public IEnumerable<Command> GetAllCommands()
+        public void UpdateCommand(int id, Command cmd)
         {
-            return _context.Commands.ToList();
-        }
-
-        public Command GetCommandById(int id)
-        {
-            return _context.Commands.FirstOrDefault(p => p.Id == id);
+            // Do Nothing
         }
 
         public bool SaveChanges()

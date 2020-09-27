@@ -48,5 +48,18 @@ namespace Commander.Controllers
             // We'll use the CreatedAtRoute method to return 201 reponse to the client
             return CreatedAtRoute(nameof(GerCommandById), new { Id = commandReadDto.Id }, commandReadDto);
         }
+    
+        [HttpPut("{id}")]
+        public ActionResult<CommandReadDto> UpdateCommand(int id, CommandUpdateDto commandUpdateDto) 
+        {
+            var commandModel = _repo.GetCommandById(id);
+            if (commandModel == null) return NotFound();
+
+            _mapper.Map(commandUpdateDto, commandModel); // This will update commandModel with the data in commandUpdateDto
+            _repo.UpdateCommand(id, commandModel);
+            _repo.SaveChanges();
+
+            return NoContent();
+        }
     }
 }
